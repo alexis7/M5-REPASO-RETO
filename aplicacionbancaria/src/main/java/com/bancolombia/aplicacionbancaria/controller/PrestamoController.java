@@ -1,5 +1,6 @@
 package com.bancolombia.aplicacionbancaria.controller;
 
+import com.bancolombia.aplicacionbancaria.model.dto.ClienteDTO;
 import com.bancolombia.aplicacionbancaria.model.dto.ConsultarPrestamo;
 import com.bancolombia.aplicacionbancaria.model.dto.SolicitarPrestamoDTO;
 import com.bancolombia.aplicacionbancaria.service.PrestamoService;
@@ -23,8 +24,8 @@ public class PrestamoController {
     }
 
     @GetMapping("/consultarHistorial")
-    public String consultarHistorialPrestamo(@Valid @RequestBody ConsultarPrestamo prestamo) {
-        return prestamoService.consultarHistorialPrestamos(prestamo.getIdPrestamo());
+    public String consultarHistorialPrestamo(@Valid @RequestBody ClienteDTO clienteDTO) {
+        return prestamoService.consultarHistorialPrestamos(clienteDTO.getIdCliente());
     }
 
     @PostMapping("/solicitarPrestamo")
@@ -42,8 +43,8 @@ public class PrestamoController {
         return prestamoService.rechazarPrestamo(prestamo.getIdPrestamo());
     }
 
-    @PostMapping("/simular")
-    public String simularCuotas() {
-        return prestamoService.simularCuotas();
+    @PostMapping("/simularCuota")
+    public String simularCuotas(@Valid @RequestBody SolicitarPrestamoDTO prestamo) {
+        return prestamoService.simularCuotas(prestamo);
     }
 }

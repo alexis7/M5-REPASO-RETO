@@ -1,5 +1,6 @@
 package com.bancolombia.aplicacionbancaria.service;
 
+import com.bancolombia.aplicacionbancaria.model.Cliente;
 import com.bancolombia.aplicacionbancaria.model.HistorialPrestamo;
 import com.bancolombia.aplicacionbancaria.model.Prestamo;
 import com.bancolombia.aplicacionbancaria.model.dto.SolicitarPrestamoDTO;
@@ -34,12 +35,12 @@ public class PrestamoService {
         throw new NullPointerException("El prestamo no existe");
     }
 
-    public String consultarHistorialPrestamos(Long idPrestamo) {
-        Optional<Prestamo> prestamo = prestamoRepository.findById(idPrestamo);
-        if (prestamo.isPresent()) {
-            return "Historial de los ultimos 5 prestamos: " + prestamo.get().getHistorialPrestamos();
+    public String consultarHistorialPrestamos(Long idCliente){
+        Optional<Cliente> cliente = clienteRepository.findById(idCliente);
+        if (cliente.isPresent()) {
+            return "Historial de prestamos del cliente: " + cliente.get().getPrestamos();
         }
-        throw new NullPointerException("El prestamo no existe");
+        throw new NullPointerException("El cliente no existe");
     }
 
     public String solicitarPrestamo(SolicitarPrestamoDTO prestamoDTO) {
@@ -106,8 +107,9 @@ public class PrestamoService {
                 .orElseThrow(() -> new NullPointerException("El prestamo no existe"));
     }
 
-    public String simularCuotas() {
-        return "Rechazando prestamo";
+    public String simularCuotas(SolicitarPrestamoDTO prestamoDTO) {
+        Prestamo prestamo = new Prestamo();
+        return prestamo.calcularCuota(prestamoDTO.getMonto(), prestamoDTO.getInteres(), prestamoDTO.getDuracionMeses());
     }
 
 }

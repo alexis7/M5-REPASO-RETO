@@ -2,6 +2,10 @@ package com.bancolombia.aplicacionbancaria.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 @Entity
 @Table(name = "cliente")
 public class Cliente {
@@ -25,6 +29,9 @@ public class Cliente {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String direccion;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Prestamo> prestamos;
+
     // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -43,5 +50,18 @@ public class Cliente {
 
     public String getDireccion() { return direccion; }
     public void setDireccion(String direccion) { this.direccion = direccion; }
+
+
+    public List<Prestamo> getPrestamos(){
+
+        int totalElementos = prestamos.size();
+        prestamos.sort(Comparator.comparing(Prestamo::getFechaCreacion));
+        int inicio = Math.max(totalElementos - 3, 0);
+        List<Prestamo> historialList = new ArrayList<>();
+        for (int i = inicio; i < totalElementos; i++) {
+            historialList.add(prestamos.get(i));
+        }
+        return historialList;
+    }
 
 }

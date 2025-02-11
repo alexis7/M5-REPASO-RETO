@@ -2,6 +2,8 @@ package com.bancolombia.aplicacionbancaria.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -78,4 +80,35 @@ public class Prestamo {
         }
         return historialList;
     }
+
+    //Fórmula de la Cuota Mensual (Sistema Francés)
+        public String calcularCuota(BigDecimal monto, BigDecimal tasaAnual, int meses) {
+            if (meses <= 0 || monto.compareTo(BigDecimal.ZERO) <= 0 || tasaAnual.compareTo(BigDecimal.ZERO) < 0) {
+                throw new IllegalArgumentException("Los valores deben ser mayores a 0.");
+            }
+
+            // Convertimos la tasa anual a tasa mensual
+            BigDecimal tasaMensual = tasaAnual.divide(BigDecimal.valueOf(12 * 100), 10, RoundingMode.HALF_EVEN);
+
+            // Fórmula de cuota fija
+            BigDecimal unoMasTasa = BigDecimal.ONE.add(tasaMensual);
+            BigDecimal potencia = unoMasTasa.pow(-meses, new MathContext(10, RoundingMode.HALF_EVEN));
+            BigDecimal divisor = BigDecimal.ONE.subtract(potencia);
+
+            return "El valor de la cuota será de: " + monto.multiply(tasaMensual).divide(divisor, 2, RoundingMode.HALF_EVEN);
+        }
+
+        @Override
+        public String toString() {
+            return "Prestamo { " +
+                    "id=" + id +
+                    ", monto=" + monto +
+                    ", interes=" + interes +
+                    ", duracionMeses=" + duracionMeses +
+                    ", estado='" + estado + '\'' +
+                    ", fechaCreacion=" + fechaCreacion +
+                    ", fechaActualizacion=" + fechaActualizacion +
+                    " }";
+        }
+
 }

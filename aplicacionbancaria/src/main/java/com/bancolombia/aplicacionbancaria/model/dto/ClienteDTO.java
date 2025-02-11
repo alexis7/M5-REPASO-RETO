@@ -8,14 +8,22 @@ import org.springframework.validation.annotation.Validated;
 public class ClienteDTO {
 
     @NotNull(message = "El numero de documento no puede ser nulo")
-    private String numeroDocumento;
+    private Long idCliente;
 
 
     public ClienteDTO(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
+        this.idCliente = idCliente;
     }
 
     public ClienteDTO() {
+    }
+
+    public Long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
     }
 
 
