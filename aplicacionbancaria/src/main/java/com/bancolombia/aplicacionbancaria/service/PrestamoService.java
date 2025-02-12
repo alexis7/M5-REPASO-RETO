@@ -1,11 +1,9 @@
 package com.bancolombia.aplicacionbancaria.service;
 
 import com.bancolombia.aplicacionbancaria.model.Cliente;
-import com.bancolombia.aplicacionbancaria.model.HistorialPrestamo;
 import com.bancolombia.aplicacionbancaria.model.Prestamo;
 import com.bancolombia.aplicacionbancaria.model.dto.SolicitarPrestamoDTO;
 import com.bancolombia.aplicacionbancaria.repository.ClienteRepository;
-import com.bancolombia.aplicacionbancaria.repository.HistorialPrestamoRepository;
 import com.bancolombia.aplicacionbancaria.repository.PrestamoRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +16,9 @@ public class PrestamoService {
 
     private ClienteRepository clienteRepository;
 
-    private HistorialPrestamoRepository historialPrestamoRepository;
-
-    public PrestamoService(PrestamoRepository prestamoRepository, ClienteRepository clienteRepository,
-                           HistorialPrestamoRepository historialPrestamoRepository) {
+    public PrestamoService(PrestamoRepository prestamoRepository, ClienteRepository clienteRepository) {
         this.prestamoRepository = prestamoRepository;
         this.clienteRepository = clienteRepository;
-        this.historialPrestamoRepository = historialPrestamoRepository;
     }
 
     public String consultarEstadoPrestamo(Long idPrestamo) {
@@ -54,12 +48,6 @@ public class PrestamoService {
                     prestamo.setDuracionMeses(prestamoDTO.getDuracionMeses());
                     prestamoRepository.save(prestamo);
 
-                    HistorialPrestamo historialPrestamo = new HistorialPrestamo();
-                    historialPrestamo.setMontoSolicitado(prestamoDTO.getMonto());
-                    historialPrestamo.setPrestamo(prestamo);
-                    historialPrestamo.setEstado("Pendiente");
-                    historialPrestamoRepository.save(historialPrestamo);
-
                     return "Prestamo solicitado";
                 })
                 .orElseThrow(() -> new NullPointerException("El cliente no existe"));
@@ -71,12 +59,6 @@ public class PrestamoService {
                     if ("Pendiente".equals(prestamo.getEstado())) {
                         prestamo.setEstado("Aprobado");
                         prestamoRepository.save(prestamo);
-
-                        HistorialPrestamo historialPrestamo = new HistorialPrestamo();
-                        historialPrestamo.setMontoSolicitado(prestamo.getMonto());
-                        historialPrestamo.setPrestamo(prestamo);
-                        historialPrestamo.setEstado("Aprobado");
-                        historialPrestamoRepository.save(historialPrestamo);
 
                         return "Prestamo aprobado";
                     } else {
@@ -92,12 +74,6 @@ public class PrestamoService {
                     if ("Pendiente".equals(prestamo.getEstado())) {
                         prestamo.setEstado("Rechazado");
                         prestamoRepository.save(prestamo);
-
-                        HistorialPrestamo historialPrestamo = new HistorialPrestamo();
-                        historialPrestamo.setMontoSolicitado(prestamo.getMonto());
-                        historialPrestamo.setPrestamo(prestamo);
-                        historialPrestamo.setEstado("Rechazado");
-                        historialPrestamoRepository.save(historialPrestamo);
 
                         return "Prestamo Rechazado";
                     } else {

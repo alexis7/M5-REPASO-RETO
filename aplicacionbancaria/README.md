@@ -83,22 +83,6 @@ direccion TEXT NOT NULL
 );
 
 
--- Crear la tabla historial_prestamos
-
-CREATE TABLE public.historial_prestamos (
-id SERIAL PRIMARY KEY,
-prestamo_id INTEGER NOT NULL,
-monto_solicitado NUMERIC(15,2) NOT NULL,
-estado VARCHAR(50) NOT NULL,
-fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    CONSTRAINT fk_prestamo FOREIGN KEY (prestamo_id)
-    REFERENCES public.prestamos (id)
-    ON DELETE CASCADE
-);
-
-
 -- Crear la tabla prestamos
 
 CREATE TABLE public.prestamos (

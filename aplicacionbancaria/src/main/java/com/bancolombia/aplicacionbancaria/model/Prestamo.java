@@ -5,9 +5,6 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
 
 
 @Entity
@@ -33,9 +30,6 @@ public class Prestamo {
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
-
-    @OneToMany(mappedBy = "prestamo")
-    private List<HistorialPrestamo> historialPrestamo;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime fechaCreacion = LocalDateTime.now();
@@ -69,17 +63,6 @@ public class Prestamo {
 
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
     public LocalDateTime getFechaActualizacion() { return fechaActualizacion; }
-
-    public List<HistorialPrestamo> getHistorialPrestamos() {
-        int totalElementos = historialPrestamo.size();
-        historialPrestamo.sort(Comparator.comparing(HistorialPrestamo::getFechaCreacion));
-        int inicio = Math.max(totalElementos - 5, 0);
-        List<HistorialPrestamo> historialList = new ArrayList<>();
-        for (int i = inicio; i < totalElementos; i++) {
-            historialList.add(historialPrestamo.get(i));
-        }
-        return historialList;
-    }
 
     //Fórmula de la Cuota Mensual (Sistema Francés)
         public String calcularCuota(BigDecimal monto, BigDecimal tasaAnual, int meses) {
