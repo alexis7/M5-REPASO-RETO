@@ -78,7 +78,7 @@ public class Prestamo {
             BigDecimal potencia = unoMasTasa.pow(-meses, new MathContext(10, RoundingMode.HALF_EVEN));
             BigDecimal divisor = BigDecimal.ONE.subtract(potencia);
 
-            return "El valor de la cuota será de: " + monto.multiply(tasaMensual).divide(divisor, 2, RoundingMode.HALF_EVEN);
+            return "El valor de la cuota será de " + monto.multiply(tasaMensual).divide(divisor, 2, RoundingMode.HALF_EVEN) + " para la solicitud de un prestamo de " + monto + " con una tasa de interes anual del " + tasaAnual + "% a " + meses + " meses.";
         }
 
         @Override

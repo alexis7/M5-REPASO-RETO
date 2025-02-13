@@ -32,7 +32,7 @@ public class PrestamoService {
     public String consultarHistorialPrestamos(Long idCliente){
         Optional<Cliente> cliente = clienteRepository.findById(idCliente);
         if (cliente.isPresent()) {
-            return "Historial de prestamos del cliente: " + cliente.get().getPrestamos();
+            return "El historial de los últimos tres prestamos del cliente " + cliente.get().getNombre() + " son: " + cliente.get().getPrestamos();
         }
         throw new NullPointerException("El cliente no existe");
     }
@@ -48,7 +48,7 @@ public class PrestamoService {
                     prestamo.setDuracionMeses(prestamoDTO.getDuracionMeses());
                     prestamoRepository.save(prestamo);
 
-                    return "Prestamo solicitado";
+                    return "El prestamo ha sido solicitado con exito";
                 })
                 .orElseThrow(() -> new NullPointerException("El cliente no existe"));
     }
@@ -62,7 +62,7 @@ public class PrestamoService {
 
                         return "Prestamo aprobado";
                     } else {
-                        return "Prestamo no aprobado, cuenta con el estado " + prestamo.getEstado();
+                        return "El prestamo no se puede aprobar, ya cuenta con el estado " + prestamo.getEstado();
                     }
                 })
                 .orElseThrow(() -> new NullPointerException("El prestamo no existe"));
@@ -77,7 +77,7 @@ public class PrestamoService {
 
                         return "Prestamo Rechazado";
                     } else {
-                        return "Prestamo no Rechazado, cuenta con el estado " + prestamo.getEstado();
+                        return "El prestamo no se puede rechazar, ya cuenta con el estado " + prestamo.getEstado();
                     }
                 })
                 .orElseThrow(() -> new NullPointerException("El prestamo no existe"));

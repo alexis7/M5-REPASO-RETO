@@ -1,72 +1,53 @@
 ### Los endpoint para probar son los siguientes:
 
-### Para consultar el saldo de una cuenta:
-localhost:8080/cuenta/saldo
+### Para consultar el prestamos:
+localhost:8080\prestamo\consultar
 
 {
-"cuenta": "12"
+"idPrestamo": "4"
 }
 
-### Para consultar el historial de transacciones de una cuenta:
-localhost:8080/cuenta/historial
+### Para consultar el historial de prestamos de un cliente:
+localhost:8080\prestamo\consultarHistorial
 
 {
-"cuenta": "12"
+"idCliente": "1"
 }
 
-### Para realizar un deposito desde una sucursal:
-localhost:8080/transaccion/deposito/sucursal
+### Para solicitar un prestamo:
+localhost:8080\prestamo\solicitarPrestamo
 
 {
-"cuenta": "12",
-"tipoTransaccion": "Deposito desde sucursal",
-"monto": 100
+"monto": "1900",
+"clienteId":"1",
+"duracionMeses": "12",
+"interes":"1.2"
 }
 
-### Para realizar un deposito desde un cajero:
-localhost:8080/transaccion/deposito/cajero
+### Para aprobar un prestamo:
+localhost:8080\prestamo\aprobarPrestamo
 
 {
-"cuenta": "12",
-"tipoTransaccion": "Deposito desde cajero",
-"monto": 100
+"idPrestamo": "7"
 }
 
-### Para realizar un deposito desde otra cuenta:
-localhost:8080/transaccion/deposito/otracuenta
+### Para recharzar un prestamo:
+localhost:8080\prestamo\rechazarPrestamo
 
 {
-"cuenta": "12",
-"tipoTransaccion": "Deposito desde otra cuenta",
-"monto": 100
+"idPrestamo": "4"
 }
 
-### Para realizar una compra en un establecimiento fisico:
-localhost:8080/transaccion/compra/fisico
+### Para simular la cuota de un prestamo:
+localhost:8080\prestamo\simularCuota
 
 {
-"cuenta": "12",
-"tipoTransaccion": "Compra establecimiento fisico",
-"monto": 100
+"monto": "1900",
+"clienteId":"1",
+"duracionMeses": "12",
+"interes":"12"
 }
 
-### Para realizar una compra en una pagina web:
-localhost:8080/transaccion/compra/web
-
-{
-"cuenta": "12",
-"tipoTransaccion": "Compra en pagina web",
-"monto": 100
-}
-
-### Para realizar un retiro en un cajero:
-localhost:8080/transaccion/retiro/cajero
-
-{
-"cuenta": "12",
-"tipoTransaccion": "Retiro desde cajero",
-"monto": 100
-}
 
 ### Script de las tablas de la DB
 
