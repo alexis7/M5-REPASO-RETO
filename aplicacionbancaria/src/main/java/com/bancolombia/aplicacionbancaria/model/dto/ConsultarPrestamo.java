@@ -1,10 +1,12 @@
 package com.bancolombia.aplicacionbancaria.model.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 public class ConsultarPrestamo {
 
     @NotNull(message = "El id del prestamos no puede ser nulo")
+    @Positive(message = "El id del prestamos debe ser mayor a cero")
     private Long idPrestamo;
 
     public ConsultarPrestamo(Long idPrestamo) {

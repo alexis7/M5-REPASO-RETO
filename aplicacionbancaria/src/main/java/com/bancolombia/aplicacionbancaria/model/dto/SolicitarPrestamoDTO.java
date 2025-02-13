@@ -23,6 +23,7 @@ public class SolicitarPrestamoDTO {
     private String estado;
 
     @NotNull(message = "El id del cliente no puede ser nulo")
+    @Positive(message = "El id del cliente debe ser mayor a cero")
     private Long clienteId;
     private LocalDateTime fechaCreacion;
     private LocalDateTime fechaActualizacion;
