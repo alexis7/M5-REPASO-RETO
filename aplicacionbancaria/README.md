@@ -4,7 +4,7 @@
 localhost:8080\prestamo\consultar
 
 {
-"idPrestamo": "4"
+"idPrestamo": "1"
 }
 
 ### Para consultar el historial de prestamos de un cliente:
@@ -28,14 +28,14 @@ localhost:8080\prestamo\solicitarPrestamo
 localhost:8080\prestamo\aprobarPrestamo
 
 {
-"idPrestamo": "7"
+"idPrestamo": "1"
 }
 
 ### Para recharzar un prestamo:
 localhost:8080\prestamo\rechazarPrestamo
 
 {
-"idPrestamo": "4"
+"idPrestamo": "1"
 }
 
 ### Para simular la cuota de un prestamo:
